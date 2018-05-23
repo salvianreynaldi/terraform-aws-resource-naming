@@ -28,8 +28,8 @@ provider "random" {
 
 # Throws error when name_prefix is exceeding the maximum character limit from AWS
 resource "null_resource" "name_prefix_is_too_long" {
-  count                                                                                                                                                                                 = "${local.prefix_length > local.resource_max_character_length && local.resource_max_character_length != 0 ? 1 : 0}"
-  "\n\nYour name_prefix is too long.\n\"${local.prefix}\" length is ${local.prefix_length} which is longer than the limit, which is ${local.resource_max_character_length} characters." = true
+  count                                                                                                                                                                           = "${local.prefix_length > local.resource_max_character_length && local.resource_max_character_length != 0 ? 1 : 0}"
+  "\n\nYour name_prefix is too long.\n'name_prefix' length is ${local.prefix_length} which is longer than the limit, which is ${local.resource_max_character_length} characters." = true
 }
 
 # Throws error when resource_type is not suppported by the module yet
