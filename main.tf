@@ -6,7 +6,7 @@ locals {
   # Example:
   # * var.name_prefix = "txtdata-app"    -->  prefix = "txtdata-app-"
   # * var.name_prefix = "txtdata-app-"   -->  prefix = "txtdata-app-"
-  # * var.name_prefix = "txtdata-app--"  -->  prefix = "txtdata-app--"   
+  # * var.name_prefix = "txtdata-app--"  -->  prefix = "txtdata-app--"
   prefix = "${substr(var.name_prefix, -1, 1) == "-" ? substr(var.name_prefix, 0, length(var.name_prefix)-1) : var.name_prefix}-"
 
   prefix_length                 = "${length(local.prefix)}"
@@ -28,8 +28,8 @@ provider "random" {
 
 # Throws error when name_prefix is exceeding the maximum character limit from AWS
 resource "null_resource" "name_prefix_is_too_long" {
-  count                                                                                                = "${local.prefix_length > local.resource_max_character_length && local.resource_max_character_length != 0 ? 1 : 0}"
-  "\n\nYour name_prefix is too long.\nThe limit is ${local.resource_max_character_length} characters." = true
+  count                                                                                                                                                                     = "${local.prefix_length > local.resource_max_character_length && local.resource_max_character_length != 0 ? 1 : 0}"
+  "\n\nYour name_prefix is too long.\n${local.prefix} length is ${length(local.prefix)} longer than the limit, which is ${local.resource_max_character_length} characters." = true
 }
 
 # Throws error when resource_type is not suppported by the module yet
